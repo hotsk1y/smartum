@@ -36,8 +36,36 @@
       >
         {{ link.name }}
       </router-link>
+      <button
+        class="text-xl font-medium text-white hover:text-gray-300"
+        @click="scrollToSection('methods-section')"
+      >
+        Програми
+      </button>
       <slot />
     </nav>
+
+    <!-- Phone and Social Links -->
+    <div class="absolute bottom-8 w-full flex flex-col items-center space-y-4">
+      <a
+        href="tel:+380983143607"
+        class="text-lg text-white hover:text-gray-300"
+      >
+        +38 (098) 314 36 07
+      </a>
+      <div class="flex space-x-4">
+        <a
+          v-for="(link, index) in socialLinks"
+          :key="index"
+          :href="link.href"
+          target="_blank"
+          class="w-8 h-8 flex items-center justify-center bg-white text-blue-600 rounded-full hover:bg-gray-100"
+          :aria-label="link.label"
+        >
+          <img :src="link.icon" :alt="link.label" class="w-5 h-5" />
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,12 +81,35 @@ export default {
       type: Array,
       required: true,
     },
+    socialLinks: {
+      type: Array,
+      required: true,
+    },
   },
   emits: ['close'],
   methods: {
     closeMenu() {
       this.$emit('close');
     },
+    scrollToSection(id) {
+      this.closeMenu();
+      const section = document.getElementById(id);
+      if (section) {
+        const offset = 180; // Паддинг для учёта фиксированного хедера
+        const elementPosition =
+          section.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    },
   },
 };
 </script>
+
+<style scoped>
+/* Additional styles for positioning and spacing */
+</style>

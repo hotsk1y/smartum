@@ -21,28 +21,14 @@
         <!-- Social Links -->
         <div class="flex space-x-4">
           <a
-            href="https://instagram.com"
+            v-for="(link, index) in socialLinks"
+            :key="index"
+            :href="link.href"
             target="_blank"
-            class="hover:text-blue-300 text-2xl"
-            aria-label="Instagram"
+            class="w-8 h-8 flex items-center justify-center bg-white text-blue-600 rounded-full hover:bg-gray-100"
+            :aria-label="link.label"
           >
-            📷
-          </a>
-          <a
-            href="https://tiktok.com"
-            target="_blank"
-            class="hover:text-blue-300 text-2xl"
-            aria-label="TikTok"
-          >
-            🎥
-          </a>
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            class="hover:text-blue-300 text-2xl"
-            aria-label="Facebook"
-          >
-            📘
+            <img :src="link.icon" :alt="link.label" class="w-5 h-5" />
           </a>
         </div>
       </div>
@@ -53,6 +39,37 @@
 <script>
 export default {
   name: 'Footer',
+  data() {
+    return {
+      socialLinks: [
+        {
+          label: 'Telegram',
+          href: 'https://t.me/smartumkids',
+          icon: '/src/assets/social/telegram.png',
+        },
+        {
+          label: 'Instagram',
+          href: 'https://www.instagram.com/smartum_kids/',
+          icon: '/src/assets/social/instagram.png',
+        },
+        {
+          label: 'Facebook',
+          href: 'https://www.facebook.com/profile.php?id=61568671144523',
+          icon: '/src/assets/social/facebook.png',
+        },
+        {
+          label: 'WhatsApp',
+          href: 'https://wa.me/qr/TRZU7RSWTONZJ1',
+          icon: '/src/assets/social/whatsapp.png',
+        },
+        {
+          label: 'TikTok',
+          href: 'https://www.tiktok.com/@smartum.kids?_t=ZM-8tJEpRef3Dx&_r=1',
+          icon: '/src/assets/social/tik-tok.png',
+        },
+      ],
+    };
+  },
   methods: {
     writeToDirector() {
       alert('Thank you!');
